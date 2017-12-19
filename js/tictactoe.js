@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-
+  // creating array of '0'
   let gridWidth = 3;
   let gridHeight = 3;
   let grid = [];
@@ -10,16 +10,12 @@ $(document).ready(function(){
       grid[y].push(0);
     }
   }
+  console.log(`grid: ${grid}`)
 
   let $table = $('.table');
-
-  $table.on('click', 'td', function () {
-    console.log(`$(this).attr('data-row'): ${$(this).attr('data-row')}`);
-    console.log(`$(this).attr('data-column'): ${$(this).attr('data-column')} `);
-  })
-
   let columns = 3, rows = 3;
 
+  //create grid on screen
   function createGrid(columns, rows) {
 
     for (let i = 0; i < rows; i++) {
@@ -28,7 +24,8 @@ $(document).ready(function(){
       for (let j = 0; j < columns; j++) {
         let cell = $('<td>')
           cell.attr('data-row', i);
-          cell.attr('data-column', j)
+          cell.attr('data-column', j);
+          cell.attr('id', `${i}${j}`)
           row.append(cell);
       }
     }
@@ -37,30 +34,65 @@ $(document).ready(function(){
 
   createGrid(columns, rows);
 
+  // const playerOne = 'X';
+  // const playerTwo = 'O';
+
+  let playerOneTurn = true;
+
+  // event listener for player clicking into cells
+  $table.on('click', 'td', function () {
+    // $(this).attr('data-row');
+    // console.log(`$(this).attr('data-column'): ${$(this).attr('data-column')} `);
+
+
+    // check if box is already filled
+    if ( $(this).children().length === 0 ) {
+    // check if it's X's or O's turn
+      if ( playerOneTurn === true ) {
+        // fill the box
+       $(this).append("<p>X</p>");
+       playerOneTurn = false;
+     } else {
+        $(this).append("<p>O</p>");
+        playerOneTurn = true;
+
+      }
+    }
+
+    // check for a win or draw
+
+    // display win or draw
+  });
+
+
+
+
+
+
+
+
+
   // square to change colour when mouse is hovering over
 
   const $cell = $('td');
 
-  $cell.on('mouseenter', function() {
-    $(this).css("backgroundColor", "#39CCCC")
+  $cell.hover(function() {
+    $(this).css("backgroundColor", "#39CCCC");
+    }, function() {
+    $(this).css("backgroundColor", "inherit");
   });
-
-  $cell.on('mouseleave', function() {
-    $(this).css("backgroundColor", "inherit")
-  });
-
-  // .mouseleave(function(){
-  //   $(this).remove('backgroundColor');
-  // });
-
 
   // on click, append alternating pictures of 'x' or 'o' into selected square. (determine if the square has already been filled?)
-
-  $cell.on('click', function() {
-
-  })
-
-
+  //
+  // let nought = "<img src='img/nought.png'>";
+  // let cross = "<img src='img/cross.png'>";
+  //
+  // // $cell.append(nought);
+//
+//   $(this).on('click', function() {
+//     $(this).attr(nought);
+//
+//   })
 });
 
 // - check if the move just played has won the game
