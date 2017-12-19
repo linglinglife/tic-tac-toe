@@ -14,11 +14,11 @@ $(document).ready(function(){
   let $table = $('.table');
 
   $table.on('click', 'td', function () {
-    console.log($(this).attr('data-row'));
-    console.log($(this).attr('data-column'));
+    console.log(`$(this).attr('data-row'): ${$(this).attr('data-row')}`);
+    console.log(`$(this).attr('data-column'): ${$(this).attr('data-column')} `);
   })
 
-  let columns = 3, rows = 3
+  let columns = 3, rows = 3;
 
   function createGrid(columns, rows) {
 
@@ -37,19 +37,32 @@ $(document).ready(function(){
 
   createGrid(columns, rows);
 
+  // square to change colour when mouse is hovering over
+
   const $cell = $('td');
 
-  $cell.on('mouseover', function() {
+  $cell.on('mouseenter', function() {
     $(this).css("backgroundColor", "#39CCCC")
   });
+
+  $cell.on('mouseleave', function() {
+    $(this).css("backgroundColor", "inherit")
+  });
+
+  // .mouseleave(function(){
+  //   $(this).remove('backgroundColor');
+  // });
+
+
+  // on click, append alternating pictures of 'x' or 'o' into selected square. (determine if the square has already been filled?)
+
+  $cell.on('click', function() {
+
+  })
 
 
 });
 
-// square to change colour when mouse is hovering over
-
-
-// on click, place alternating pictures of 'x' or 'o' into selected square. (determine if the square has already been filled?)
-  // - check if the move just played has won the game
-  // - if won, declare winner
-  // - if all spaces are filled, and no winner, then declare draw
+// - check if the move just played has won the game
+// - if won, declare winner
+// - if all spaces are filled, and no winner, then declare draw
