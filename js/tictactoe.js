@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready( function() {
 
   // creating array of '0'
   let gridWidth = 3;
@@ -10,13 +10,13 @@ $(document).ready(function(){
       grid[y].push(0);
     }
   }
-  console.log(`grid: ${grid}`)
+  // console.log(`grid: ${grid}`)
 
   let $table = $('.table');
   let columns = 3, rows = 3;
 
   //create grid on screen
-  function createGrid(columns, rows) {
+  function createGrid( columns, rows ) {
 
     for (let i = 0; i < rows; i++) {
       let row = $('<tr>');
@@ -25,14 +25,29 @@ $(document).ready(function(){
         let cell = $('<td>')
           cell.attr('data-row', i);
           cell.attr('data-column', j);
-          cell.attr('id', `${i}${j}`)
+          // cell.attr('id', `${i}${j}`)
           row.append(cell);
       }
     }
-
   };
 
-  createGrid(columns, rows);
+  createGrid( columns, rows );
+
+  // square to change colour when mouse is hovering over
+  const $cell = $('td');
+
+  $cell.hover(function() {
+    $(this).css( "backgroundColor", "#39CCCC" );
+    }, function() {
+    $(this).css( "backgroundColor", "inherit" );
+  });
+
+  // on click, append alternating pictures of 'x' or 'o' into selected square. (determine if the square has already been filled?)
+  //
+  // let nought = "<img src='img/nought.png'>";
+  // let cross = "<img src='img/cross.png'>";
+  //
+  // // $cell.append(nought);
 
   // const playerOne = 'X';
   // const playerTwo = 'O';
@@ -41,7 +56,7 @@ $(document).ready(function(){
 
   // event listener for player clicking into cells
   $table.on('click', 'td', function () {
-    // $(this).attr('data-row');
+    // console.log( `$(this).attr('data-row'): ${$(this).attr('data-row')}`;
     // console.log(`$(this).attr('data-column'): ${$(this).attr('data-column')} `);
 
 
@@ -58,10 +73,10 @@ $(document).ready(function(){
 
       }
     }
+    // - check if the move just played has won the game
+    // - if won, declare winner
+    // - if all spaces are filled, and no winner, then declare draw
 
-    // check for a win or draw
-
-    // display win or draw
   });
 
 
@@ -72,29 +87,8 @@ $(document).ready(function(){
 
 
 
-  // square to change colour when mouse is hovering over
 
-  const $cell = $('td');
 
-  $cell.hover(function() {
-    $(this).css("backgroundColor", "#39CCCC");
-    }, function() {
-    $(this).css("backgroundColor", "inherit");
-  });
 
-  // on click, append alternating pictures of 'x' or 'o' into selected square. (determine if the square has already been filled?)
-  //
-  // let nought = "<img src='img/nought.png'>";
-  // let cross = "<img src='img/cross.png'>";
-  //
-  // // $cell.append(nought);
-//
-//   $(this).on('click', function() {
-//     $(this).attr(nought);
-//
-//   })
+
 });
-
-// - check if the move just played has won the game
-// - if won, declare winner
-// - if all spaces are filled, and no winner, then declare draw

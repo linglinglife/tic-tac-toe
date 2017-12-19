@@ -2,15 +2,23 @@ body {
   background-color: #AFEEEE;
 }
 
-h1{
+h1, p {
   text-align: center;
-  font-size: 60pt;
   font-family: 'Herr Von Muellerhoff', cursive;
+}
 
+h1 {
+  font-size: 70pt;
+}
+
+p {
+  font-size: 30pt;
+  display: inline;
+  line-height: 0;
 }
 
 td {
-    border: AliceBlue solid 2px;
+    border: AliceBlue solid 3px;
 }
 
 
