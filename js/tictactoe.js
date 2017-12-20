@@ -3,21 +3,22 @@ let count = 0;
 
 $(document).ready( function() {
 
-  // creating array of '0'
+  // create a 2D dynamic array
   let gridWidth = 3;
   let gridHeight = 3;
+  let filler = 0;
   for( let y = 0; y < gridHeight; y++ ) {
     grid.push([]);
     for( let x = 0; x < gridWidth; x++ ) {
-      grid[y].push(null);
+      grid[y].push(filler);
+      filler++;
     }
   }
-  console.log(`grid: ${grid}`)
 
   let $table = $('.table');
   let columns = 3, rows = 3;
 
-  //create grid on screen
+  // create a grid
   function createGrid( columns, rows ) {
 
     for (let i = 0; i < rows; i++) {
@@ -27,20 +28,12 @@ $(document).ready( function() {
         let cell = $('<td>')
           cell.attr('data-row', i);
           cell.attr('data-column', j);
-          // cell.attr('id', `${i}${j}`)
           row.append(cell);
       }
     }
-    // let coordinates = grid${i}${j};
   };
 
   createGrid( columns, rows );
-
-
-  // console.log(`row: ${$row} col: ${$column}`)
-
-  // let coordinates = grid[$row][$column];
-
 
   // square to change colour when mouse is hovering over
   const $cell = $('td');
@@ -51,13 +44,6 @@ $(document).ready( function() {
     $(this).css( "backgroundColor", "inherit" );
   });
 
-  // on click, append alternating pictures of 'x' or 'o' into selected square. (determine if the square has already been filled?)
-  //
-  // let nought = "<img src='img/nought.png'>";
-  // let cross = "<img src='img/cross.png'>";
-  //
-  // // $cell.append(nought);
-
   const playerOne = 'X';
   const playerTwo = 'O';
 
@@ -65,75 +51,46 @@ $(document).ready( function() {
 
   // event listener for player clicking into cells
   $table.on('click', 'td', function () {
-
-
-    console.log(count);
-
     let $row = $(this).attr('data-row');
     let $column = $(this).attr('data-column');
 
-
     // check if box is already filled
     if ( $(this).children().length === 0 ) {
-        count++;
-    // check if it's X's or O's turn
+      // start tallying up click counts
+      count++;
+      // assume playerOne starts the game
       if ( playerOneTurn === true ) {
-        // fill the box
+        // fill the box with X
        $(this).append(`<p>${playerOne}</p>`);
-        // - append the x or o into the 2D array
+        // append the X into the 2D array
        grid[$row][$column] = playerOne;
-       playerOneTurn = false;
       } else {
+        // fill the box with O
        $(this).append(`<p>${playerTwo}</p>`);
+       // append the 0 into the 2D array
        grid[$row][$column] = playerTwo;
-        playerOneTurn = true;
       }
+
+      // - check only after 5th click if the move just played has won the game
+      if ( count >= 5 && (
+          (grid[0][0] === grid[0][1] && grid[0][1] === grid[0][2]) ||
+          (grid[1][0] === grid[1][1] && grid[1][1] === grid[1][2]) ||
+          (grid[2][0] === grid[2][1] && grid[2][1] === grid[2][2]) ||
+          (grid[0][0] === grid[1][0] && grid[1][0] === grid[2][0]) ||
+          (grid[0][1] === grid[1][1] && grid[1][1] === grid[2][1]) ||
+          (grid[0][2] === grid[1][2] && grid[1][2] === grid[2][2]) ||
+          (grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2]) ||
+          (grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0])
+        )) {
+        window.alert("Congratulations, You won!");
+        // - if all spaces are filled, and no winner, then declare draw
+      } else if (count === 9) {
+        window.alert("Congratulations, it's a draw!");
+      }
+      // switch players
+      playerOneTurn = !playerOneTurn;
     }
-
-    // - check for 5th-9th click if the move just played has won the game
-
-
-
-
-      if ( count >= 5 && (grid[0][0] === grid[0][1] && grid[0][1] === grid[0][2])) {
-        window.alert("You won!");
-      }
-
-
-
   });
 
-
-
-      //   (grid[1][0] === grid[1][1] && grid[1][1] === grid[1][2])
-      //   (grid[2][0] === grid[2][1] && grid[2][1] === grid[2][2])
-      //   (grid[0][0] === grid[1][0] && grid[1][0] === grid[2][0])
-      //   (grid[0][1] === grid[1][1] && grid[1][1] === grid[2][1])
-      //   (grid[0][2] === grid[1][2] && grid[1][2] === grid[2][2])
-      //   (grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2])
-      //   (grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0])
-
-
-
-
-
-    // - if won, declare winner
-
-    // - if all spaces are filled, and no winner, then declare draw
     // - if all items in the array are /= 0, then
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
