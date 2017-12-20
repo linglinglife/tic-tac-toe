@@ -19,13 +19,15 @@ p {
 
 td {
     border: AliceBlue solid 3px;
+    width: 20vh;
+    height: 20vh;
 }
 
 
 .table {
-  width: 400px;
-  height: 400px;
+  /*width: 400px;
+  height: 400px;*/
   text-align: center;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
