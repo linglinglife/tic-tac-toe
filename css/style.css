@@ -9,6 +9,12 @@ h1, p {
 
 h1 {
   font-size: 70pt;
+  font-size: 6.5vh;
+  -webkit-margin-before: 0.5em;
+  -webkit-margin-after: 0.4em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+
 }
 
 p {

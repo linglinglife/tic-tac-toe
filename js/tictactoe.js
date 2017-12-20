@@ -1,16 +1,17 @@
+let grid = [];
+
 $(document).ready( function() {
 
   // creating array of '0'
   let gridWidth = 3;
   let gridHeight = 3;
-  let grid = [];
   for( let y = 0; y < gridHeight; y++ ) {
     grid.push([]);
     for( let x = 0; x < gridWidth; x++ ) {
-      grid[y].push(0);
+      grid[y].push(null);
     }
   }
-  // console.log(`grid: ${grid}`)
+  console.log(`grid: ${grid}`)
 
   let $table = $('.table');
   let columns = 3, rows = 3;
@@ -29,9 +30,17 @@ $(document).ready( function() {
           row.append(cell);
       }
     }
+    // let coordinates = grid${i}${j};
   };
 
   createGrid( columns, rows );
+
+  let $row = $(this).attr('data-row');
+  let $column = $(this).attr('data-column');
+  // console.log(`row: ${$row} col: ${$column}`)
+
+  // let coordinates = grid[$row][$column];
+
 
   // square to change colour when mouse is hovering over
   const $cell = $('td');
@@ -49,8 +58,8 @@ $(document).ready( function() {
   //
   // // $cell.append(nought);
 
-  // const playerOne = 'X';
-  // const playerTwo = 'O';
+  const playerOne = 'X';
+  const playerTwo = 'O';
 
   let playerOneTurn = true;
 
@@ -65,15 +74,34 @@ $(document).ready( function() {
     // check if it's X's or O's turn
       if ( playerOneTurn === true ) {
         // fill the box
-       $(this).append("<p>X</p>");
+       $(this).append(`<p>${playerOne}</p>`);
+      //  grid[i][j].push(`${playerOne}`);
        playerOneTurn = false;
      } else {
-        $(this).append("<p>O</p>");
+       $(this).append(`<p>${playerTwo}</p>`);
         playerOneTurn = true;
-
       }
     }
+    // - append the x or o into the 2D array
+
     // - check if the move just played has won the game
+    (grid[0][0] === grid[0][1] && grid[0][1] === grid[0][2])
+
+    (grid[1][0] === grid[1][1] && grid[1][1] === grid[1][2])
+
+    (grid[2][0] === grid[2][1] && grid[2][1] === grid[2][2])
+
+    (grid[0][0] === grid[1][0] && grid[1][0] === grid[2][0])
+
+    (grid[0][1] === grid[1][1] && grid[1][1] === grid[2][1])
+
+    (grid[0][2] === grid[1][2] && grid[1][2] === grid[2][2])
+
+    (grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2])
+
+    (grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0])
+
+
     // - if won, declare winner
     // - if all spaces are filled, and no winner, then declare draw
 
