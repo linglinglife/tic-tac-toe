@@ -36,8 +36,7 @@ $(document).ready( function() {
 
   createGrid( columns, rows );
 
-  let $row = $(this).attr('data-row');
-  let $column = $(this).attr('data-column');
+
   // console.log(`row: ${$row} col: ${$column}`)
 
   // let coordinates = grid[$row][$column];
@@ -66,35 +65,43 @@ $(document).ready( function() {
 
   // event listener for player clicking into cells
   $table.on('click', 'td', function () {
-    // console.log (`$(this).attr('data-row'): ${$(this).attr('data-row')})`;
-    // console.log(`$(this).attr('data-column'): ${$(this).attr('data-column')} `);
+
+
+    console.log(count);
+
+    let $row = $(this).attr('data-row');
+    let $column = $(this).attr('data-column');
 
 
     // check if box is already filled
     if ( $(this).children().length === 0 ) {
+        count++;
     // check if it's X's or O's turn
       if ( playerOneTurn === true ) {
         // fill the box
        $(this).append(`<p>${playerOne}</p>`);
-      //  grid[i][j].push(`${playerOne}`);
+        // - append the x or o into the 2D array
+       grid[$row][$column] = playerOne;
        playerOneTurn = false;
       } else {
        $(this).append(`<p>${playerTwo}</p>`);
+       grid[$row][$column] = playerTwo;
         playerOneTurn = true;
       }
     }
-    // - append the x or o into the 2D array
+
+    // - check for 5th-9th click if the move just played has won the game
+
+
+
+
+      if ( count >= 5 && (grid[0][0] === grid[0][1] && grid[0][1] === grid[0][2])) {
+        window.alert("You won!");
+      }
+
 
 
   });
-    // - check for 5th-9th click if the move just played has won the game
-
-      $(this).click(function() {
-        count++;
-      });
-
-      if ( count >= 5 && (grid[0][0] === grid[0][1] && grid[0][1] === grid[0][2])) {
-        return alert("You won!");;
 
 
 
@@ -105,7 +112,7 @@ $(document).ready( function() {
       //   (grid[0][2] === grid[1][2] && grid[1][2] === grid[2][2])
       //   (grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2])
       //   (grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0])
-      }
+
 
 
 
