@@ -1,5 +1,8 @@
 let gameArray = [];
 let count = 0;
+let xWinCounter = 0;
+let oWinCounter = 0;
+let drawCounter = 0;
 
 $(document).ready( function() {
 
@@ -49,15 +52,13 @@ $(document).ready( function() {
   const playerTwo = 'O';
 
   let playerOneTurn = true;
-  let winX = 0;
-  let winO = 0;
-  let drawCounter = 0;
+
   let won = false;
   let winnerMessage;
 
   // event listener for player clicking into cells
   $cell.click( function () {
-    if (won === true){
+    if ( won === true ){
       return;
     };
 
@@ -76,6 +77,7 @@ $(document).ready( function() {
        gameArray[$row][$column] = playerOne;
        playerWin = 'XXX';
        winnerMessage = "X is the best!";
+      //  xWinCounter++;
       } else {
         // fill the box with O
        $(this).append(`<p>${playerTwo}</p>`);
@@ -83,6 +85,7 @@ $(document).ready( function() {
        gameArray[$row][$column] = playerTwo;
        playerWin = 'OOO';
        winnerMessage = "O is a hero";
+      //  oWinCounter++
       }
 
       // - check only after 5th click if the move just played has won the game
@@ -94,13 +97,19 @@ $(document).ready( function() {
           gameArray[0][1] + gameArray[1][1] + gameArray[2][1] === playerWin ||
           gameArray[0][2] + gameArray[1][2] + gameArray[2][2] === playerWin ||
           gameArray[0][0] + gameArray[1][1] + gameArray[2][2] === playerWin ||
-          gameArray[0][2] + gameArray[1][1] + gameArray[2][0] === playerWin
-        )) {
-        $('body').append(`<div id="endMessage">${winnerMessage}</div>`);
+          gameArray[0][2] + gameArray[1][1] + gameArray[2][0] === playerWin )
+        ) {
+        $('body').append( `<div id='endMessage'>${winnerMessage}</div>` );
         won = true;
+        if ( playerOneTurn === true ) {
+            xWinCounter++;
+          } else {
+            oWinCounter++;
+          }
+
         // - if all spaces are filled, and no winner, then declare draw
-      } else if (count === 9) {
-        $('body').append("<div id='endMessage'>Congratulations, it's a draw!</div>");
+      } else if ( count === 9 ) {
+        $('body').append( "<div id='endMessage'>Congratulations, it's a draw!</div>" );
         drawCounter++;
       }
       // switch players
@@ -108,16 +117,15 @@ $(document).ready( function() {
     }
   });
 
-  let $button = $('button');
+  let $button = $( 'button' );
 
   $button.click( function () {
 
     gameArray = [];
     count = 0;
     createArray( columns, rows );
-    $("p").remove();
-    $("#endMessage").remove();
+    $('p').remove();
+    $('#endMessage').remove();
     won = false;
   });
-
 });
