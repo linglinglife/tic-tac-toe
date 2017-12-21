@@ -2,16 +2,16 @@ body {
   background-color: #AFEEEE;
 }
 
-h1, p {
+h1, p, div {
   text-align: center;
   font-family: 'Herr Von Muellerhoff', cursive;
 }
 
 h1 {
-  font-size: 70pt;
-  font-size: 6.5vh;
-  -webkit-margin-before: 0.5em;
-  -webkit-margin-after: 0.4em;
+  font-size: 75pt;
+  font-size: 7vh;
+  -webkit-margin-before: 0.4em;
+  -webkit-margin-after: 0.3em;
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
 
@@ -24,16 +24,18 @@ p {
 }
 
 td {
-    border: AliceBlue solid 3px;
-    width: 20vh;
-    height: 20vh;
+    border: AliceBlue solid 2px;
+    width: 18vh;
+    height: 18vh;
 }
 
 
 .table {
-  /*width: 400px;
-  height: 400px;*/
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+}
+
+div {
+  font-size: 28pt;
 }

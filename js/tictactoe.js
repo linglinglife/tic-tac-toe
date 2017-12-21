@@ -19,9 +19,9 @@ $(document).ready( function() {
   let columns = 3, rows = 3;
 
   // create a grid
-  function createGrid( columns, rows ) {
+  const createGrid = function ( columns, rows ) {
 
-    for (let i = 0; i < rows; i++) {
+    for ( let i = 0; i < rows; i++ ) {
       let row = $('<tr>');
       $table.append(row)
       for (let j = 0; j < columns; j++) {
@@ -48,6 +48,7 @@ $(document).ready( function() {
   const playerTwo = 'O';
 
   let playerOneTurn = true;
+  let win = 0;
 
   // event listener for player clicking into cells
   $table.on('click', 'td', function () {
@@ -64,33 +65,33 @@ $(document).ready( function() {
        $(this).append(`<p>${playerOne}</p>`);
         // append the X into the 2D array
        grid[$row][$column] = playerOne;
+       playerWin = 'XXX';
       } else {
         // fill the box with O
        $(this).append(`<p>${playerTwo}</p>`);
        // append the 0 into the 2D array
        grid[$row][$column] = playerTwo;
+       playerWin = 'OOO';
       }
 
       // - check only after 5th click if the move just played has won the game
       if ( count >= 5 && (
-          (grid[0][0] === grid[0][1] && grid[0][1] === grid[0][2]) ||
-          (grid[1][0] === grid[1][1] && grid[1][1] === grid[1][2]) ||
-          (grid[2][0] === grid[2][1] && grid[2][1] === grid[2][2]) ||
-          (grid[0][0] === grid[1][0] && grid[1][0] === grid[2][0]) ||
-          (grid[0][1] === grid[1][1] && grid[1][1] === grid[2][1]) ||
-          (grid[0][2] === grid[1][2] && grid[1][2] === grid[2][2]) ||
-          (grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2]) ||
-          (grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0])
+          grid[0][0] + grid[0][1] + grid[0][2] === playerWin ||
+          grid[1][0] + grid[1][1] + grid[1][2] === playerWin ||
+          grid[2][0] + grid[2][1] + grid[2][2] === playerWin ||
+          grid[0][0] + grid[1][0] + grid[2][0] === playerWin ||
+          grid[0][1] + grid[1][1] + grid[2][1] === playerWin ||
+          grid[0][2] + grid[1][2] + grid[2][2] === playerWin ||
+          grid[0][0] + grid[1][1] + grid[2][2] === playerWin ||
+          grid[0][2] + grid[1][1] + grid[2][0] === playerWin
         )) {
-        window.alert("Congratulations, You won!");
+        $('body').append(`<div>You won!</div>`);
         // - if all spaces are filled, and no winner, then declare draw
       } else if (count === 9) {
-        window.alert("Congratulations, it's a draw!");
+        $('body').append("<div>Congratulations, it's a draw!</div>");
       }
       // switch players
       playerOneTurn = !playerOneTurn;
     }
   });
-
-    // - if all items in the array are /= 0, then
 });
