@@ -99,16 +99,16 @@ $(document).ready( function() {
         won = true;
         if ( playerXTurn === true ) {
             xWinCounter++;
-            $('#playerX').append(xWinCounter);
+            $('#playerX').html(`Player X: ${xWinCounter}`);
           } else {
             oWinCounter++;
-            $('#playerO').append(oWinCounter);
+            $('#playerO').html(`Player O: ${oWinCounter}`);
           }
         // if all spaces are filled, and no winner, then declare draw
       } else if ( count === 9 ) {
         $('body').append( "<span id='endMessage'>It's a draw!</span>" );
         drawCounter++;
-        $('#draws').append(drawCounter);
+        $('#draws').html(`Draws: ${drawCounter}`);
       }
       // switch players
       playerXTurn = !playerXTurn;
