@@ -1,4 +1,4 @@
-let gameArray = [];
+let gameArray = []; //can be wrapped in an object so only 1 global
 let count = 0;
 let xWinCounter = 0;
 let oWinCounter = 0;
@@ -28,8 +28,8 @@ $(document).ready( function() {
       $table.append( row );
       for ( let j = 0; j < columns; j++ ) {
         let cell = $( '<td>' );
-        cell.attr( 'data-row', i );
-        cell.attr( 'data-column', j );
+        cell.data( 'row', i );
+        cell.data( 'column', j );
         row.append( cell );
       }
     }
@@ -60,8 +60,8 @@ $(document).ready( function() {
       return;
     };
 
-    let $row = $(this).attr('data-row');
-    let $column = $(this).attr('data-column');
+    let $row = $(this).data('row');
+    let $column = $(this).data('column');
 
     // check if box is already filled
     if ( $(this).children().length === 0 ) {
