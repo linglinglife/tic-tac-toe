@@ -7,21 +7,19 @@ let drawCounter = 0;
 $(document).ready( function() {
 
   // create a 2D dynamic array
-  const createArray = function ( gridHeight, gridWidth ) {
-    for( let y = 0; y < gridHeight; y++ ) {
+  const createArray = function ( sideLength ) {
+    for( let y = 0; y < sideLength; y++ ) {
       gameArray.push([]);
-      for( let x = 0; x < gridWidth; x++ ) {
+      for( let x = 0; x < sideLength; x++ ) {
         gameArray[y].push(null);
       }
     }
   };
 
   let columns = 3, rows = 3;
-
   createArray( columns, rows );
 
   let $table = $( '.table' );
-
   // create a grid
   const createGrid = function ( columns, rows ) {
 
@@ -51,7 +49,7 @@ $(document).ready( function() {
   const playerOne = 'X';
   const playerTwo = 'O';
 
-  let playerOneTurn = true;
+  let playerXTurn = true;
 
   let won = false;
   let winnerMessage;
@@ -70,14 +68,13 @@ $(document).ready( function() {
       // start tallying up click counts
       count++;
       // assume playerOne starts the game
-      if ( playerOneTurn === true ) {
+      if ( playerXTurn === true ) {
         // fill the box with X
        $(this).append(`<p>${playerOne}</p>`);
         // append the X into the 2D array
        gameArray[$row][$column] = playerOne;
        playerWin = 'XXX';
        winnerMessage = "X is the best!";
-      //  xWinCounter++;
       } else {
         // fill the box with O
        $(this).append(`<p>${playerTwo}</p>`);
@@ -85,7 +82,6 @@ $(document).ready( function() {
        gameArray[$row][$column] = playerTwo;
        playerWin = 'OOO';
        winnerMessage = "O is a hero";
-      //  oWinCounter++
       }
 
       // - check only after 5th click if the move just played has won the game
@@ -99,28 +95,29 @@ $(document).ready( function() {
           gameArray[0][0] + gameArray[1][1] + gameArray[2][2] === playerWin ||
           gameArray[0][2] + gameArray[1][1] + gameArray[2][0] === playerWin )
         ) {
-        $('body').append( `<div id='endMessage'>${winnerMessage}</div>` );
+        $('body').append( `<span id='endMessage'>${winnerMessage}</span>` );
         won = true;
-        if ( playerOneTurn === true ) {
+        if ( playerXTurn === true ) {
             xWinCounter++;
+            $('#playerX').append(xWinCounter);
           } else {
             oWinCounter++;
+            $('#playerO').append(oWinCounter);
           }
-
-        // - if all spaces are filled, and no winner, then declare draw
+        // if all spaces are filled, and no winner, then declare draw
       } else if ( count === 9 ) {
-        $('body').append( "<div id='endMessage'>Congratulations, it's a draw!</div>" );
+        $('body').append( "<span id='endMessage'>It's a draw!</span>" );
         drawCounter++;
+        $('#draws').append(drawCounter);
       }
       // switch players
-      playerOneTurn = !playerOneTurn;
+      playerXTurn = !playerXTurn;
     }
   });
 
   let $button = $( 'button' );
 
   $button.click( function () {
-
     gameArray = [];
     count = 0;
     createArray( columns, rows );
