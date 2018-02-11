@@ -1,16 +1,16 @@
-##Project 0: Tic Tac Toe
+## Project 0: Tic Tac Toe
 
 Play here: https://linglinglife.github.io/tic-tac-toe/
 
-###Known bugs:
+### Known bugs:
 * CSS positioning
 
-###Features:
+### Features:
 * 2 player game, switching between X and O.
 * Declare wins or draws
 * Win and draw counter
 
-###Wishlist
+### Wishlist
 * Dynamic board sizing
 * Customised tokens
 * AI opponent (MiniMax)
